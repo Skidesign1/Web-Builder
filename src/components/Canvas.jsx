@@ -109,6 +109,7 @@ import ResponsiveNavbar from './ResponsiveNavbar';
 
 const Canvas = ({ components, setComponents, isMobileView }) => {
   const { isOver, setNodeRef } = useDroppable({ id: 'canvas' });
+  const [renderedComponents, setRenderedComponents] = useState([]);
 
   useEffect(() => {
     const newRenderedComponents = components.map((component, idx) => {
