@@ -1,8 +1,8 @@
+import React, { useState } from 'react';  // Import React and useState hook
+import { MinusIcon, PlusIcon, ArrowPathIcon, DocumentIcon, PhotoIcon, ArchiveBoxIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/solid';  // Import solid icons from Heroicons
+import { PencilSquareIcon } from '@heroicons/react/24/outline';  // Import outline icon from Heroicons
 
-import React, { useState } from 'react';
-import { MinusIcon, PlusIcon, ArrowPathIcon, DocumentIcon, PhotoIcon, ArchiveBoxIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/solid';
-import { PencilSquareIcon } from '@heroicons/react/24/outline'; 
-
+// Define different screen resolutions for various devices
 const resolutions = {
   "Mobile Resolutions": [
     { label: '320 x 480 — iPhone 4', size: [320, 480] },
@@ -48,12 +48,13 @@ const resolutions = {
 };
 
 const Navbar = ({ onReset, onDuplicate, onRemove, onChangeView, onDocsToggle, onAddPhoto, onSave, onOpenSettings, onToggleEditor }) => {
-  const [selectedResolution, setSelectedResolution] = useState('');
+  const [selectedResolution, setSelectedResolution] = useState('');  // State to manage the selected resolution
 
+  // Handle change of selected resolution
   const handleResolutionChange = (event) => {
-    const selectedSize = event.target.value.split('x').map(Number);
-    setSelectedResolution(event.target.value);
-    onChangeView(selectedSize);
+    const selectedSize = event.target.value.split('x').map(Number);  // Convert selected resolution to size array
+    setSelectedResolution(event.target.value);  // Update state with selected resolution
+    onChangeView(selectedSize);  // Trigger change view callback with selected size
   };
 
   return (
@@ -101,7 +102,7 @@ const Navbar = ({ onReset, onDuplicate, onRemove, onChangeView, onDocsToggle, on
           <AdjustmentsHorizontalIcon className="w-4 h-4" />
         </button>
         <button onClick={onToggleEditor} className="text-gray-800 mr-4" title="Edit Website">
-          <PencilSquareIcon className="w-4 h-4" /> {/* Add this line */}
+          <PencilSquareIcon className="w-4 h-4" /> 
         </button>
       </div>
     </nav>
