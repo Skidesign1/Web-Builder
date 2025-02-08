@@ -56,9 +56,9 @@ const Navbar = ({ onReset, onDuplicate, onRemove, onChangeView, onDocsToggle, on
     setSelectedResolution(event.target.value);  // Update state with selected resolution
     onChangeView(selectedSize);  // Trigger change view callback with selected size
   };
-
+// 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gray-100 h-16 flex items-center justify-between px-5 border-b-2 border-gray-300 z-50">
+    <nav className=" top-0 left-0 w-full bg-gray-100 h-16 flex items-center justify-between px-5 border-b-2 border-gray-300 z-50">
       <div className="flex items-center">
         <span className="text-gray-800 font-bold text-sm mr-5">Canvas</span>
         <span className="text-gray-800 font-bold text-sm mr-5">Docs</span>
@@ -106,6 +106,11 @@ const Navbar = ({ onReset, onDuplicate, onRemove, onChangeView, onDocsToggle, on
         </button>
       </div>
     </nav>
+
+        
+
+
+
   );
 };
 

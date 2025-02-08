@@ -46,6 +46,48 @@ body, html {
 
 .canvas-inner {
   max-height: 100vh;
+} 
+
+
+.mygrid{
+
+      display:grid;
+      grid-template-columns: 1fr 7fr;
+      grid-template-rows: 90vh;
+      overflow:hidden;
 }
 
 
+.maincont{
+      
+     max-height:100vh;
+     max-width: 100%;
+  
+}
+
+
+.myborder{
+
+     border-left:1px solid black;
+     border-bottom: 1px solid black;
+     border-top: 1px solid black;
+}
+
+
+/* height of main body*/
+
+.height{
+
+    height:440px;
+}
+
+
+.overstyle{
+
+      width:90%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+}
