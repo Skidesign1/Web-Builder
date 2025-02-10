@@ -4,12 +4,18 @@ import { Route, Routes } from 'react-router-dom';
 import AppLayout from './components/AppLayouts';
 import './index.css';
 import CodeEditorPage from './components/CodeEditorPage';
+import Homenavbar from "./components/canvacomponent/Homenavbar"
+import Aboutnavbar from "./components/canvacomponent/Aboutnavbar"
+import Servicesnavbar from './components/canvacomponent/Servicesnavbar';
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<AppLayout />} />
-      <Route path="/code-editor" element={<CodeEditorPage />} />
+       <Route path="/" element={<AppLayout />} />
+       <Route  path="/navbar-home"  element={<Homenavbar/>}  /> 
+       <Route  path="/navbar-about"  element={<Aboutnavbar/>}  /> 
+       <Route  path="/navbar-services"  element={<Servicesnavbar/>}  /> 
+       <Route path="/code-editor" element={<CodeEditorPage />} />
     </Routes>
   );
 };

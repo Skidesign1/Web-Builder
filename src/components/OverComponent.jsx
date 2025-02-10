@@ -1,7 +1,20 @@
 import React from 'react'
+import {myImage} from "../assets/assets"
+import {NavLink, Link} from "react-router-dom"
 
 const OverComponent = ({name}) => {
       
+     const style={
+
+           color:"goldenyellow"
+
+     }
+
+
+
+
+
+
 
     if (name === "navbar"){
 
@@ -9,9 +22,36 @@ const OverComponent = ({name}) => {
          
           className="overstyle"   >    
 
-               
-               <h1>{name}</h1>
- 
+               <Link to="/">
+                    <img  src={myImage}  className='rounded-full w-20 h-20'     alt="redeem-logo"   />
+               </Link> 
+              
+    
+              <ul className='flex items-center gap-2'>
+                   
+                 <NavLink  to="navbar-home"     className={(isActive)=>   isActive? "get": null }  >
+                    
+                        <div>
+                            Home 
+                        </div>   
+                </NavLink>     
+                      
+                <NavLink  to="navbar-about"     className={(isActive)=>   isActive? "get": null }  >
+                    
+                        <div>
+                            About
+                        </div>   
+                </NavLink>  
+
+                <NavLink  to="navbar-services"     className={(isActive)=>   isActive? "get": null }  >
+                    
+                        <div>
+                            Services
+                        </div>   
+                </NavLink>      
+                     
+             </ul>          
+
 
          </div>
 

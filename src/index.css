@@ -86,8 +86,26 @@ body, html {
 
       width:90%;
       display:flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding-left: 2rem;
+      padding-right: 4rem;
 
+}
+
+.get{
+
+   padding:3px;
+}
+
+
+.get:active{
+
+    color:goldenrod;
+}
+
+.get:hover{
+
+    background-color: goldenrod;
+  
 }
