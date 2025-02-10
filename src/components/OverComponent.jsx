@@ -10,7 +10,7 @@ const OverComponent = ({name}) => {
 
       {/*you are welcome */}
 
-
+     {/* alright*/}
 
     if (name === "navbar"){
 
