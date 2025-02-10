@@ -49,6 +49,11 @@ body, html {
 } 
 
 
+
+/* second developer style */
+
+
+
 .mygrid{
 
       display:grid;
@@ -90,7 +95,7 @@ body, html {
       justify-content: space-between;
       padding-left: 2rem;
       padding-right: 4rem;
-
+      
 }
 
 .get{
@@ -108,4 +113,9 @@ body, html {
 
     background-color: goldenrod;
   
+}
+
+.drag{
+
+     touch-action: none;
 }
