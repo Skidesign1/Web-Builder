@@ -126,8 +126,10 @@ body, html {
 
      .drag{
 
-       touch-action: none;
-     }
+        touch-action: none;
+        cursor: -moz-grab;
+        cursor: -webkit-grabbing;
+    }
 
 
 
