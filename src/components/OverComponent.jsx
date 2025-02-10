@@ -4,11 +4,7 @@ import {NavLink, Link} from "react-router-dom"
 
 const OverComponent = ({name}) => {
       
-     const style={
-
-           color:"goldenyellow"
-
-     }
+     
 
 
 
