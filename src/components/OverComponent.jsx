@@ -6,11 +6,6 @@ const OverComponent = ({name}) => {
       
      
 
-     {/*lets build an app */}
-
-      {/*you are welcome */}
-
-     {/* alright*/}
 
     if (name === "navbar"){
 
