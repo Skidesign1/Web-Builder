@@ -94,9 +94,36 @@ body, html {
       align-items: center;
       justify-content: space-between;
       padding-left: 2rem;
-      padding-right: 4rem;
+      padding-right: 6rem;
       
 }
+
+.sub-over{
+
+     display:none;
+     position:absolute;
+     top:0px;
+     right:45px;
+     font-size: 20px;
+     
+}
+
+
+.overstyle:hover{
+
+   filter:brightness(90%);
+   cursor:pointer;
+   background-color: transparent;
+}
+
+.overstyle:hover .sub-over{
+
+   display:block;
+
+}
+
+
+
 
 .get{
 

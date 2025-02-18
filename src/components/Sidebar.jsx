@@ -3,13 +3,33 @@ import { useDraggable } from '@dnd-kit/core';
 import { Resizable } from 'react-resizable';
 import { MagnifyingGlassIcon, HomeIcon, Squares2X2Icon, Cog6ToothIcon, QuestionMarkCircleIcon, WrenchScrewdriverIcon, ChartBarIcon, DocumentTextIcon } from '@heroicons/react/24/solid';
 import 'react-resizable/css/styles.css';
-
+import "../../node_modules/font-awesome/css/font-awesome.min.css"
 // Draggable component to make elements draggable
 const Draggable = ({ id, name, icon }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+
+
+
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined, // Apply transform based on drag movement
   };
+
+    
+      if (name === "Navbar-1" || name === "Navbar-2" ){
+
+        
+        return (
+          <div ref={setNodeRef} style={style} {...listeners} {...attributes} className={`cursor-move flex items-center hover:bg-blue-600 ${isDragging? "hover:bg-gray-50": "hover:bg-blue-600"  }   `}   >
+            {icon}
+            <span className="ml-2">{name}</span>
+          </div>
+        );          
+
+
+      }
+
+ 
+
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="cursor-move flex items-center">
@@ -22,6 +42,7 @@ const Draggable = ({ id, name, icon }) => {
 // Sidebar component with resizable functionality
 const Sidebar = () => {
   // Components list
+  const [toggle,setToggle]=React.useState(false)
   const coreItems = [
     { id: 'navbar', text: 'Navbar', icon: <HomeIcon className="w-4 h-4" /> },
     { id: 'header', text: 'Header', icon: <ChartBarIcon className="w-4 h-4" /> },
@@ -36,6 +57,15 @@ const Sidebar = () => {
     { id: 'labels', text: 'Labels', icon: <Squares2X2Icon className="w-4 h-4" /> },
     { id: 'icon', text: 'Icon', icon: <Cog6ToothIcon className="w-4 h-4" /> },
   ];
+
+  const lastItem=[
+        
+      {id:"navbar-1", text:"Navbar-1", icon:<HomeIcon  className='w-5' />  },
+      {id:"navbar-2", text:"Navbar-2", icon:<HomeIcon  className='w-5' />  } 
+
+  ]
+
+
 
   // State to manage sidebar width
   const [width, setWidth] = React.useState(240);
@@ -120,11 +150,19 @@ const Sidebar = () => {
                          <ul>
                           
                              {
-                                coreItems.map(items=>(
-                                   <li key={items.id}  className='flex items-center gap-2 relative  ' >
-                                       <Draggable  id={items.id} icon={items.icon} name={items.text}   />
-                                   </li>
-                                ))
+                                coreItems.map(items=>{
+
+                                    return      <li key={items.id}  className='flex items-center gap-2 relative  ' >
+                                           <Draggable  id={items.id} icon={items.icon} name={items.text}   />
+                                             </li>
+     
+
+                                }
+
+                                  //  <li key={items.id}  className='flex items-center gap-2 relative  ' >
+                                  //      <Draggable  id={items.id} icon={items.icon} name={items.text}   />
+                                  //  </li>
+                                )
 
                              }
 
@@ -145,11 +183,34 @@ const Sidebar = () => {
                                   } 
                               </ul>  
 
+                              <div className='mt-7  group cursor-pointer relative '>
+                                  <div className='flex items-center gap-2'>
+                                      <h2><strong>Navbars</strong></h2>
+                                      <i  onClick={()=> setToggle(!toggle)} title="drop-down"  className={`fa fa-angle-right ${toggle? "rotate-90":null}`}  ></i>
+                                  </div>
+                                  <div className={ `${toggle? "block" :  "hidden" } ` }  >
+                                       
+                                       {
+                                        
+                                         lastItem.map(item=>(
+                                          
+
+                                                 <Draggable    id={item.id} name={item.text} icon={item.icon}  />
+                                                                 
+                                          
+                              
+                                         ))
+
+                                       }
+
+                                  </div>
+                              </div>
                          </div>                         
                                       
 
                         </div>
-            
+
+             
                
              </div>                 
 
