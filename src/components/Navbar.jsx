@@ -47,70 +47,86 @@ const resolutions = {
   ]
 };
 
-const Navbar = ({ onReset, onDuplicate, onRemove, onChangeView, onDocsToggle, onAddPhoto, onSave, onOpenSettings, onToggleEditor }) => {
-  const [selectedResolution, setSelectedResolution] = useState('');  // State to manage the selected resolution
+const Navbar = ({
+  onReset,
+  onDuplicate,
+  onRemove,
+  onChangeView,
+  onDocsToggle,
+  onAddPhoto,
+  onSave,
+  onOpenSettings,
+  onToggleEditor,
+  resolutions = {}, // Default to empty object
+}) => {
+  const [selectedResolution, setSelectedResolution] = useState("");
 
-  // Handle change of selected resolution
   const handleResolutionChange = (event) => {
-    const selectedSize = event.target.value.split('x').map(Number);  // Convert selected resolution to size array
-    setSelectedResolution(event.target.value);  // Update state with selected resolution
-    onChangeView(selectedSize);  // Trigger change view callback with selected size
+    const selectedSize = event.target.value.split("x").map(Number);
+    setSelectedResolution(event.target.value);
+    onChangeView(selectedSize);
   };
-// 
+
   return (
-    <nav className=" top-0 left-0 w-full bg-gray-100 h-16 flex items-center justify-between px-5 border-b-2 border-gray-300 z-50">
-      <div className="flex items-center">
-        <span className="text-gray-800 font-bold text-sm mr-5">Canvas</span>
-        <span className="text-gray-800 font-bold text-sm mr-5">Docs</span>
-        <span className="text-gray-800 font-bold text-sm mr-5">|</span>
-        <button onClick={onRemove} className="text-gray-800 mr-3">
-          <MinusIcon className="w-4 h-4" title="Remove Item" />
+    <nav className="top-0 left-0 w-full bg-gray-100 h-16 flex items-center justify-between px-5 border-b-2 border-gray-300 z-50">
+      {/* Left Section */}
+      <div className="flex items-center space-x-4">
+        <span className="text-gray-800 font-bold text-sm">Canvas</span>
+        <span className="text-gray-800 font-bold text-sm">Docs</span>
+        <span className="text-gray-800 font-bold text-sm">|</span>
+        <button onClick={onRemove} className="text-gray-800 hover:text-red-500 transition" title="Remove Item">
+          <MinusIcon className="w-5 h-5" />
         </button>
-        <button onClick={onDuplicate} className="text-gray-800 mr-3">
-          <PlusIcon className="w-4 h-4" title="Duplicate Item" />
+        <button onClick={onDuplicate} className="text-gray-800 hover:text-blue-500 transition" title="Duplicate Item">
+          <PlusIcon className="w-5 h-5" />
         </button>
-        <button onClick={onReset} className="text-gray-800 mr-3">
-          <ArrowPathIcon className="w-4 h-4" title="Reset View" />
+        <button onClick={onReset} className="text-gray-800 hover:text-green-500 transition" title="Reset View">
+          <ArrowPathIcon className="w-5 h-5" />
         </button>
-        <div className="flex items-center ml-3">
-          <button onClick={onDocsToggle} className="text-gray-800 mr-3">
-            <DocumentIcon className="w-4 h-4" title="Toggle Docs" />
-          </button>
-        </div>
+        <button onClick={onDocsToggle} className="text-gray-800 hover:text-yellow-500 transition" title="Toggle Docs">
+          <DocumentIcon className="w-5 h-5" />
+        </button>
       </div>
 
-      <div className="flex items-center">
-        <select value={selectedResolution} onChange={handleResolutionChange} className="text-gray-800 mr-4">
+      {/* Right Section */}
+      <div className="flex items-center space-x-4">
+        {/* Resolution Dropdown */}
+        <select
+          value={selectedResolution}
+          onChange={handleResolutionChange}
+          className="p-1 text-gray-800 border rounded-md"
+        >
           <option value="" disabled>Select Resolution</option>
-          {Object.keys(resolutions).map((category) => (
+          {Object.keys(resolutions || {}).map((category) => (
             <optgroup key={category} label={category}>
-              {resolutions[category].map((res) => (
-                <option key={res.label} value={res.size.join('x')}>
-                  {res.label}
-                </option>
-              ))}
+              {Array.isArray(resolutions[category]) ? (
+                resolutions[category].map((res) => (
+                  <option key={res.label} value={res.size.join("x")}>
+                    {res.label}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No resolutions available</option>
+              )}
             </optgroup>
           ))}
         </select>
-        <button onClick={onAddPhoto} className="text-gray-800 mr-4" title="Add Photo">
-          <PhotoIcon className="w-4 h-4" />
+
+        {/* Action Buttons */}
+        <button onClick={onAddPhoto} className="text-gray-800 hover:text-indigo-500 transition" title="Add Photo">
+          <PhotoIcon className="w-5 h-5" />
         </button>
-        <button onClick={onSave} className="text-gray-800 mr-4" title="Save">
-          <ArchiveBoxIcon className="w-4 h-4" />
+        <button onClick={onSave} className="text-gray-800 hover:text-green-500 transition" title="Save">
+          <ArchiveBoxIcon className="w-5 h-5" />
         </button>
-        <button onClick={onOpenSettings} className="text-gray-800 mr-4" title="Settings">
-          <AdjustmentsHorizontalIcon className="w-4 h-4" />
+        <button onClick={onOpenSettings} className="text-gray-800 hover:text-gray-500 transition" title="Settings">
+          <AdjustmentsHorizontalIcon className="w-5 h-5" />
         </button>
-        <button onClick={onToggleEditor} className="text-gray-800 mr-4" title="Edit Website">
-          <PencilSquareIcon className="w-4 h-4" /> 
+        <button onClick={onToggleEditor} className="text-gray-800 hover:text-purple-500 transition" title="Edit Website">
+          <PencilSquareIcon className="w-5 h-5" />
         </button>
       </div>
     </nav>
-
-        
-
-
-
   );
 };
 

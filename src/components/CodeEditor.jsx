@@ -1,53 +1,39 @@
-
 import React, { useState, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/css/css';
-import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/hint/javascript-hint';
 import 'codemirror/addon/hint/html-hint';
 import 'codemirror/addon/hint/css-hint';
-import 'codemirror/addon/hint/show-hint.css';
 import './CodeEditor.css';
-import FileTree from './FileTree';
-import mockFileSystem from './mockFileSystem';
+import { componentsCode } from './componentsCode'; // Ensure this import is correct
 
 const CodeEditor = () => {
-  const [code, setCode] = useState('');
-  const [language, setLanguage] = useState('javascript');
-  const [output, setOutput] = useState('');
+  const [code, setCode] = useState(""); // Define the state for code
   const navigate = useNavigate();
+  const location = useLocation();
+  const { components } = location.state || { components: [] };
+
+  const language = "xml"; // ✅ Defined to avoid errors
 
   useEffect(() => {
-    const savedCode = localStorage.getItem('code');
-    if (savedCode !== null) {
-      setCode(savedCode);
-    }
-  }, []);
+    if (components.length > 0) {
+      const generatedCode = components.map((comp) => {
+        return componentsCode[comp.name] || `<div>${comp.name}</div>`;
+      }).join("\n\n");
 
-  const handleLanguageChange = (e) => {
-    setLanguage(e.target.value);
-    setOutput('');
-  };
-
-  const runCode = () => {
-    let result = '';
-    if (language === 'javascript') {
-      try {
-        result = eval(code);
-        setOutput(result !== undefined ? result.toString() : '');
-      } catch (error) {
-        setOutput(error.toString());
-      }
-    } else if (language === 'xml' || language === 'css') {
-      setOutput(code);
+      setCode(generatedCode);
     } else {
-      setOutput('');
+      const savedCode = localStorage.getItem('code');
+      if (savedCode) {
+        setCode(savedCode);
+      }
     }
-  };
+  }, [components]);
 
   const saveCode = () => {
     localStorage.setItem('code', code);
@@ -56,18 +42,9 @@ const CodeEditor = () => {
 
   return (
     <div className="flex h-screen bg-white">
-      <div className="w-1/6 bg-gray-200">
-        <FileTree files={mockFileSystem} />
-      </div>
-      <div className="flex flex-col w-5/6 p-4">
+      <div className="flex flex-col w-full p-4">
         <div className="flex mb-4">
           <button className="mr-2 bg-gray-200 p-2" onClick={saveCode}>Save</button>
-          <button className="bg-gray-200 p-2" onClick={runCode}>Run</button>
-          <select onChange={handleLanguageChange} value={language} className="ml-2 p-2">
-            <option value="javascript">JavaScript</option>
-            <option value="xml">HTML</option>
-            <option value="css">CSS</option>
-          </select>
           <button className="ml-auto bg-gray-200 p-2" onClick={() => navigate('/')}>Back to Builder</button>
         </div>
         <div className="code-editor-wrapper flex-grow" style={{ height: 'calc(100vh - 96px)', overflow: 'auto' }}>
@@ -87,21 +64,6 @@ const CodeEditor = () => {
               editor.refresh();
             }}
           />
-        </div>
-        <div className="mt-4">
-          <h3>Output:</h3>
-          <div className="bg-gray-100 p-4">
-            {language === 'xml' || language === 'css' ? (
-              <iframe
-                title="Output"
-                sandbox="allow-scripts"
-                style={{ width: '100%', height: '200px', border: 'none' }}
-                srcDoc={code}
-              />
-            ) : (
-              <pre>{output}</pre>
-            )}
-          </div>
         </div>
       </div>
     </div>
